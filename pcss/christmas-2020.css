@@ -1,0 +1,46 @@
+h2#imPgTitle {float: left; }
+#imGroup_1 { float: left; }
+#imGroup_1 > div { float: left; }
+#imCell_1 { display: block; position: relative; overflow: hidden; }
+#imCellStyle_1 { position: relative; box-sizing: border-box; text-align: center; z-index: 2;}
+#imCellStyleGraphics_1 { position: absolute; top: 3px; bottom: 3px; background-color: transparent; }
+#imObjectGallery_1 > div { margin: 0 auto; }
+#imContent #imObjectGallery_1 a:link, #imContent #imObjectGallery_1 a:hover, #imContent #imObjectGallery_1 a:visited, #imContent #imObjectGallery_1 a:active { border: none; background-color: transparent; text-decoration: none; }
+@media (min-width: 992px) {
+	#imPgTitle { width: 948px; margin-left: 6px; margin-right: 6px; }
+	#imGroup_1 { width: 962px; }
+	#imCell_1 { width: 956px; min-height: 588px;  padding-top: 3px; padding-bottom: 3px; padding-left: 3px; padding-right: 3px; }
+	#imCellStyle_1 { width: 956px; min-height: 588px; padding: 3px 3px 3px 3px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCellStyleGraphics_1 { left: 3px; right: 3px; }
+	#imGroup_2 { width: 962px; height: 15px; }
+	
+}
+@media  (max-width: 991px) and (min-width: 720px) {
+	#imPgTitle { width: 676px; margin-left: 6px; margin-right: 6px; }
+	#imGroup_1 { width: 690px; }
+	#imCell_1 { width: 686px; min-height: 498px;  padding-top: 3px; padding-bottom: 3px; padding-left: 2px; padding-right: 2px; }
+	#imCellStyle_1 { width: 686px; min-height: 498px; padding: 3px 3px 3px 3px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCellStyleGraphics_1 { left: 2px; right: 2px; }
+	#imGroup_2 { width: 690px; height: 15px; }
+	
+}
+@media  (max-width: 719px) and (min-width: 430px) {
+	#imPgTitle { width: 386px; margin-left: 6px; margin-right: 6px; }
+	#imGroup_1 { width: 400px; clear: left; }
+	#imCell_1 { clear: left; }
+	#imCell_1 { width: 398px; min-height: 282px;  padding-top: 3px; padding-bottom: 3px; padding-left: 1px; padding-right: 1px; }
+	#imCellStyle_1 { width: 398px; min-height: 282px; padding: 3px 3px 3px 3px; border-top: 0; border-bottom: 0; border-left: 0; border-right: 0; }
+	#imCellStyleGraphics_1 { left: 1px; right: 1px; }
+	#imGroup_2 { width: 400px; height: 0px; clear: left; }
+	
+}
+@media  (max-width: 429px) {
+	#imPgTitle { width: 100%; margin-left: 0px; margin-right: 0px; }
+	#imGroup_1 { width: 100%; clear: left; }
+	#imCell_1 { clear: left; }
+	#imCell_1 { width: 100%; min-height: 12px;  padding-top: 3px; padding-bottom: 3px; padding-left: 5px; padding-right: 5px; box-sizing: border-box; }
+	#imCellStyle_1 { width: 100%; min-height: 0px; padding: 3px 3px 3px 3px; }
+	#imCellStyleGraphics_1 { top: 3px; bottom: 3px; left: 5px; right: 5px; }
+	#imGroup_2 { display: none; clear: left; }
+	
+}
