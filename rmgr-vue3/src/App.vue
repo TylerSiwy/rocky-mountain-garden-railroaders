@@ -1,21 +1,27 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <v-app>
+    <header>
+      <img alt="Vue logo" class="logo" src="./assets/logo.png" width="125" height="125" />
+      <v-navigation-drawer class="nav-drawer" app>
+        <v-list-item class="v-list-item" link title="Upcoming Events"></v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link title="About Us"></v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link title="G-Scale Model Railroading"></v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link title="Image Gallery"></v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link title="Contact Us"></v-list-item>
+        <v-divider></v-divider>
+      </v-navigation-drawer>
+    </header>
+    <main>
+      <!-- Main content goes here -->
+    </main>
+  </v-app>
 </template>
+
+<script setup lang="ts"></script>
 
 <style scoped>
 header {
@@ -44,4 +50,12 @@ header {
     flex-wrap: wrap;
   }
 }
+.nav-drawer {
+  background-color: transparent;
+}
+
+.v-list-item {
+  color: var(--color-navigation);
+}
+
 </style>

@@ -33,3 +33,16 @@ a,
     padding: 0 2rem;
   }
 }
+
+:root {
+  --color-gold: #CEA136;
+  --color-background: #1B1A0E;
+  --color-slate: #526A64;
+  --color-dark-slate: #46625C;
+  --color-background-light: #B8A567;
+  --color-background-warm: #B27742;
+  --color-evergreen: #374B26;
+  --color-dark-evergreen: #191D12;
+  --color-smoke: #D1B87F;
+  --color-dark-smoke: #AE915D;
+}
