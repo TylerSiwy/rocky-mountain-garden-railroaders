@@ -16,12 +16,14 @@
       </v-navigation-drawer>
     </header>
     <main>
-      <!-- Main content goes here -->
+      <AnimatedTrain />
     </main>
   </v-app>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AnimatedTrain from './components/AnimatedTrain.vue'
+</script>
 
 <style scoped>
 header {
@@ -50,6 +52,7 @@ header {
     flex-wrap: wrap;
   }
 }
+
 .nav-drawer {
   background-color: transparent;
 }
@@ -57,5 +60,4 @@ header {
 .v-list-item {
   color: var(--color-navigation);
 }
-
 </style>
