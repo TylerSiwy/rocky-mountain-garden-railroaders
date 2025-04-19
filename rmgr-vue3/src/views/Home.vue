@@ -1,5 +1,5 @@
 ﻿<template>
-  <span>Home Page</span>
+  <span style="color: greenyellow">Home Page</span>
 </template>
 
 <script>

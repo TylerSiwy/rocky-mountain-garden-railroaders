@@ -1,10 +1,10 @@
 ﻿<template>
-  <span style="color: red">About page</span>
+  <span style="color: greenyellow">Image Gallery</span>
 </template>
 
 <script>
 export default {
-  name: "About.vue"
+  name: "ImageGallery.vue"
 }
 </script>
 

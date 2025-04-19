@@ -1,10 +1,10 @@
 ﻿<template>
-  <span style="color: red">About page</span>
+  <span style="color: greenyellow">Contact Us</span>
 </template>
 
 <script>
 export default {
-  name: "About.vue"
+  name: "ContactUs.vue"
 }
 </script>
 

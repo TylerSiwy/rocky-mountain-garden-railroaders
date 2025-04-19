@@ -3,25 +3,36 @@
     <header>
       <img alt="Vue logo" class="logo" src="./assets/logo.png" width="125" height="125" />
       <v-navigation-drawer class="nav-drawer" app>
-        <v-list-item class="v-list-item" link title="Upcoming Events"></v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link title="About Us"></v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link title="G-Scale Model Railroading"></v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link title="Image Gallery"></v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link title="Contact Us"></v-list-item>
-        <v-divider></v-divider>
+        <v-list-item
+          v-for="item in navItems"
+          :key="item.title"
+          :to="item.to"
+          link
+          class="v-list-item"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
       </v-navigation-drawer>
     </header>
     <main>
+      <router-view>
+
+      </router-view>
       <!-- Main content goes here -->
     </main>
   </v-app>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const navItems = [
+  { title: 'Home', to: '/' },
+  { title: 'About Us', to: '/about' },
+  { title: 'G-Scale Model Railroading', to: '/g-scale' },
+  { title: 'Upcoming Events', to: '/events' },
+  { title: 'Image Gallery', to: '/gallery' },
+  { title: 'Contact Us', to: '/contact' },
+];
+</script>
 
 <style scoped>
 header {
