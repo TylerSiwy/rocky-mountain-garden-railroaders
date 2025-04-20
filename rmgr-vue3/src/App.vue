@@ -1,9 +1,11 @@
 <template>
   <v-app>
     <header>
-      <img alt="Vue logo" class="logo" src="./assets/logo.png" width="125" height="125" />
-      <v-navigation-drawer class="nav-drawer" app>
+      <v-navigation-drawer class="nav-drawer" border="md" app>
+        <img alt="Vue logo" class="logo" src="./assets/logo.png" width="125" height="125" />
         <v-list-item
+          border="sm"
+          color="white"
           v-for="item in navItems"
           :key="item.title"
           :to="item.to"
@@ -14,11 +16,8 @@
         </v-list-item>
       </v-navigation-drawer>
     </header>
-    <main>
-      <router-view>
-
-      </router-view>
-      <!-- Main content goes here -->
+    <main class="main-content">
+      <router-view />
     </main>
   </v-app>
 </template>
@@ -40,8 +39,8 @@ header {
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  display: inline-block;
+  margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
@@ -50,23 +49,19 @@ header {
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
 .nav-drawer {
-  background-color: transparent;
+  background-color: #1B1A0E;
+  text-align: center;
 }
 
 .v-list-item {
-  color: var(--color-navigation);
+  color: white;
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 </style>
