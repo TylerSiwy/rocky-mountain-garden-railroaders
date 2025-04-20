@@ -1,46 +1,41 @@
 <template>
   <v-app>
     <header>
-      <v-navigation-drawer class="nav-drawer" border="md" app>
-        <img alt="Vue logo" class="logo" src="./assets/logo.png" width="125" height="125" />
+      <v-navigation-drawer border="md" class="nav-drawer">
+        <img alt="Vue logo" height="125" src="./assets/logo.png" width="125"/>
         <v-list-item
-          border="sm"
-          color="white"
           v-for="item in navItems"
           :key="item.title"
           :to="item.to"
-          link
+          border="sm"
           class="v-list-item"
+          color="white"
+          link
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-navigation-drawer>
     </header>
-    <main class="main-content">
-      <router-view />
-    </main>
+    <v-main>
+      <router-view/>
+    </v-main>
   </v-app>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 const navItems = [
-  { title: 'Home', to: '/' },
-  { title: 'About Us', to: '/about' },
-  { title: 'G-Scale Model Railroading', to: '/g-scale' },
-  { title: 'Upcoming Events', to: '/events' },
-  { title: 'Image Gallery', to: '/gallery' },
-  { title: 'Contact Us', to: '/contact' },
+  {title: 'Home', to: '/'},
+  {title: 'About Us', to: '/about'},
+  {title: 'G-Scale Model Railroading', to: '/g-scale'},
+  {title: 'Upcoming Events', to: '/events'},
+  {title: 'Image Gallery', to: '/gallery'},
+  {title: 'Contact Us', to: '/contact'},
 ];
 </script>
 
 <style scoped>
 header {
   line-height: 1.5;
-}
-
-.logo {
-  display: inline-block;
-  margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
@@ -50,6 +45,7 @@ header {
     padding-right: calc(var(--section-gap) / 2);
   }
 }
+
 .nav-drawer {
   background-color: #1B1A0E;
   text-align: center;
@@ -59,9 +55,8 @@ header {
   color: white;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+body {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 </style>
