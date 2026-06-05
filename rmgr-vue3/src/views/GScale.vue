@@ -1,125 +1,105 @@
 ﻿<script lang="ts" setup>
-import { computed, ref } from 'vue'
-
-defineOptions({ name: 'UpcomingEvents' })
-
-const eventData = ref([
-  {
-    title: 'Annual Club Garden Tour & Open House',
-    date: 'July 19, 2026',
-    time: '10:00 AM - 4:30 PM',
-    location: 'Various Member Layouts, Calgary Area',
-    description:
-      'Our hallmark summer event! Hop between multiple breathtaking backyard garden layouts to see large-scale trains winding through real rock waterfalls, bridges, and living miniature alpine flora. The tour wraps up with an evening family social.',
-    highlight: true,
-  },
-  {
-    title: 'Supertrain Exhibition Preparation Layout',
-    date: 'August 15, 2026',
-    time: '9:00 AM - 3:00 PM',
-    location: 'Club Workshop, Calgary',
-    description:
-      'Work party session focused on electrical testing, modular base wiring, and scenery tuning for our upcoming public convention tracks. Bring your troubleshooting eyes and any rolling stock you want track-tested.',
-  },
-  {
-    title: 'Fall General Kickoff Meeting',
-    date: 'September 17, 2026',
-    time: '7:15 PM - 9:00 PM',
-    location: '2715 Dovely Park SE, Calgary',
-    description:
-      'Welcome back meeting for the fall modeling season. We will be sharing layout construction logs from over the summer, discussing new 3D printing design techniques, and scheduling our holiday display workshops.',
-    highlight: false,
-  },
-  {
-    title: 'Holiday ZooLights Setup Workshop',
-    date: 'November 07, 2026',
-    time: '10:00 AM - 2:00 PM',
-    location: 'Calgary Zoo, AB',
-    description:
-      'Initial construction and track-laying session for our famous winter display at ZooLights. Volunteers are needed to assemble weather-resistant town layouts and run power conduits.',
-  },
-])
-
-const upcomingEvents = computed(() => {
-  return eventData.value.filter((event) => {
-    const eventDateObj = new Date(event.date)
-    eventDateObj.setHours(23, 59, 59, 999)
-    return eventDateObj >= new Date()
-  })
-})
+// Ensuring the component instance name matches the descriptor inside your routes configuration file perfectly
+defineOptions({ name: 'GScaleInfo' })
 </script>
 
 <template>
   <v-container class="py-12 px-4 bg-background" fluid>
     <v-row justify="center" no-gutters>
-      <v-col class="bg-surface pa-6 rounded-t-lg" cols="12">
+      <v-col class="bg-surface pa-6 pa-sm-12 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
-          <v-card-item class="pa-0">
+          <v-card-item class="pa-0 mb-6">
             <v-card-title class="text-h4 font-weight-black text-primary pa-0">
-              Upcoming Club Events.
+              What is G-Scale Model Railroading?
             </v-card-title>
           </v-card-item>
+
+          <v-card-text class="pa-0 text-body-1 text-on-surface">
+            <p class="mb-4">
+              <span class="font-weight-bold text-primary">G-Scale</span> (also known as G-Gauge) is
+              a model scale (size) best known for <em>garden railways</em>—outdoor layouts where
+              model trains run through real landscapes (The G in G-Scale means garden). Trains run
+              on <span class="font-weight-medium">45mm track</span>, and the scale of the models
+              typically range from 1:20.3 to 1:32, with 1:22.5 being the most common.
+            </p>
+
+            <v-divider class="my-8 opacity-10"></v-divider>
+
+            <v-row justify="space-between">
+              <v-col class="pe-md-6" cols="12" md="6">
+                <div class="text-h5 font-weight-bold text-primary mb-3">History of G-Scale</div>
+                <p class="mb-4">
+                  First introduced in the 1930s, G-Scale was initially popular among European
+                  modelers who wanted larger, more detailed trains for backyard garden and attic
+                  layouts. After WWII, residential shifts caused manufacturing trends to heavily
+                  favor much smaller model train scales.
+                </p>
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <div class="text-h5 font-weight-bold text-primary mb-3">The Outdoor Revolution</div>
+                <p>
+                  In 1968, the German company LGB (Lehmann Gross Bahn) fundamentally revolutionized
+                  the market by introducing durable, completely weather-resistant trains made
+                  specifically for permanent outdoor use. Their mechanical innovation helped fully
+                  reinvigorate large-scale modeling into a thriving movement.
+                </p>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
 
       <v-col class="bg-primary pa-6 pa-sm-12 rounded-b-lg" cols="12">
         <v-card class="w-100 text-surface" color="transparent" flat>
-          <div v-if="upcomingEvents.length === 0" class="text-center py-12 opacity-70">
-            <v-icon class="mb-2 d-block mx-auto" icon="mdi-calendar-blank" size="large"></v-icon>
-            <div class="text-h6 font-weight-light">No upcoming events scheduled right now.</div>
-            <div class="text-body-2 opacity-80 mt-1">
-              Check back soon or send us a message via our contact page!
-            </div>
-          </div>
+          <v-row class="mb-6" justify="space-between">
+            <v-col class="pe-md-6 mb-6 mb-md-0" cols="12" md="6">
+              <div class="text-h5 font-weight-bold mb-3">Rise in Popularity</div>
+              <p class="mb-4 opacity-90">
+                By the mid-1980s, G-Scale had become well established. A broad variety of
+                high-fidelity locomotives, rolling stock, modular buildings, and landscape
+                accessories became widely available globally.
+              </p>
+              <p class="opacity-90">
+                Industry-focused publications inspired thousands of modelers to push
+                boundaries—blending creative modeling and meticulous scale craftsmanship with
+                outdoor horticulture.
+              </p>
+            </v-col>
 
-          <div v-for="(event, index) in upcomingEvents" :key="index">
-            <v-row align="start" class="py-4" justify="space-between">
-              <v-col cols="12" md="3" sm="4">
-                <div class="text-h5 font-weight-bold text-secondary mb-1">
-                  {{ event.date }}
-                </div>
-                <div class="text-body-2 font-weight-light opacity-70">
-                  {{ event.time }}
-                </div>
-              </v-col>
+            <v-col cols="12" md="5">
+              <div class="text-h5 font-weight-bold mb-3">Why G-Scale?</div>
+              <p class="mb-4 opacity-90">
+                G-Scale is loved for its substantial, hands-on size, massive visual impact, and
+                rugged outdoor durability. Heavy duty solid brass rails can safely be left out in
+                weather and snow year-round.
+              </p>
+              <p class="opacity-90">
+                Many modern trains feature onboard digital sound profiles, synchronized steam smoke
+                generation, and directional lighting rigs that deliver an ultra-realistic scale
+                operational experience.
+              </p>
+            </v-col>
+          </v-row>
 
-              <v-col class="pt-2 pt-sm-0" cols="12" md="8" sm="8">
-                <div class="d-flex align-center flex-wrap gap-2 mb-2">
-                  <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
+          <v-divider class="my-8 opacity-10" color="surface"></v-divider>
 
-                  <v-chip
-                    v-if="event.highlight"
-                    class="font-weight-bold ms-sm-3 px-2 rounded-sm"
-                    color="secondary"
-                    size="x-small"
-                    variant="flat"
-                  >
-                    FEATURED
-                  </v-chip>
-                </div>
-
-                <div class="d-flex align-center text-body-2 opacity-70 mb-4 font-weight-light">
-                  <v-icon
-                    class="me-1 opacity-60"
-                    color="secondary"
-                    icon="mdi-map-marker-outline"
-                    size="small"
-                  ></v-icon>
-                  {{ event.location }}
-                </div>
-
-                <p class="text-body-1 font-weight-light opacity-90">
-                  {{ event.description }}
-                </p>
-              </v-col>
-            </v-row>
-
-            <v-divider
-              v-if="index < upcomingEvents.length - 1"
-              class="my-6 opacity-10"
-              color="surface"
-            ></v-divider>
-          </div>
+          <v-row no-gutters>
+            <v-col cols="12">
+              <div class="text-h5 font-weight-bold mb-2">Want to Learn More?</div>
+              <p class="text-body-1 font-weight-light opacity-90">
+                For official international modeling standards, track clearances, and code
+                guidelines, explore the comprehensive resources provided by the
+                <a
+                  class="text-secondary font-weight-medium text-decoration-underline"
+                  href="https://www.nmra.org"
+                  rel="noopener"
+                  target="_blank"
+                  >National Model Railroad Association Website</a
+                >.
+              </p>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -130,10 +110,7 @@ const upcomingEvents = computed(() => {
 p {
   line-height: 1.6 !important;
 }
-.tracking-tight {
-  letter-spacing: -0.01em !important;
-}
-.gap-2 {
-  gap: 8px;
+a.text-secondary:hover {
+  opacity: 0.83;
 }
 </style>
