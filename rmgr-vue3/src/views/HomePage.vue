@@ -2,12 +2,8 @@
   <span style="color: greenyellow">Home Page</span>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: "Home.vue"
+  name: 'HomePage.vue',
 }
 </script>
-
-<style scoped>
-
-</style>
