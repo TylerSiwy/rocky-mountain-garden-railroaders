@@ -41,11 +41,12 @@ const eventData = ref([
 ])
 
 const upcomingEvents = computed(() => {
-  return eventData.value.filter((event) => {
-    const eventDateObj = new Date(event.date)
-    eventDateObj.setHours(23, 59, 59, 999)
-    return eventDateObj >= new Date()
-  })
+  return eventData.value
+})
+
+defineExpose({
+  eventData,
+  upcomingEvents,
 })
 </script>
 
@@ -72,53 +73,49 @@ const upcomingEvents = computed(() => {
             </div>
           </div>
 
-          <div v-for="(event, index) in upcomingEvents" :key="index">
-            <v-row align="start" class="py-4">
-              <v-col cols="12" md="3" sm="4">
-                <div class="text-h5 font-weight-bold text-secondary mb-1">
-                  {{ event.date }}
-                </div>
-                <div class="text-body-2 font-weight-light opacity-70">
-                  {{ event.time }}
-                </div>
-              </v-col>
+          <div v-else class="events-scroll">
+            <div v-for="(event, index) in upcomingEvents" :key="index">
+              <v-row align="start" class="py-4">
+                <v-col cols="12" md="3" sm="4">
+                  <div class="text-h5 font-weight-bold text-secondary mb-1">
+                    {{ event.date }}
+                  </div>
+                  <div class="text-body-2 font-weight-light opacity-70">
+                    {{ event.time }}
+                  </div>
+                </v-col>
 
-              <v-col class="pt-2 pt-sm-0" cols="12" md="8" sm="8">
-                <div class="d-flex align-center flex-wrap gap-2 mb-2">
-                  <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
+                <v-col class="pt-2 pt-sm-0" cols="12" md="8" sm="8">
+                  <div class="d-flex align-center flex-wrap gap-2 mb-2">
+                    <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
 
-                  <v-chip
-                    v-if="event.highlight"
-                    class="font-weight-bold ms-sm-3 px-2 rounded-sm"
-                    color="secondary"
-                    size="x-small"
-                    variant="flat"
-                  >
-                    FEATURED
-                  </v-chip>
-                </div>
+                    <v-chip
+                      v-if="event.highlight"
+                      class="font-weight-bold ms-sm-3 px-2 rounded-sm"
+                      color="secondary"
+                      size="x-small"
+                      variant="flat"
+                    >
+                      FEATURED
+                    </v-chip>
+                  </div>
 
-                <div class="d-flex align-center text-body-2 opacity-70 mb-4 font-weight-light">
-                  <v-icon
-                    class="me-1 opacity-60"
-                    color="secondary"
-                    icon="mdi-map-marker-outline"
-                    size="small"
-                  ></v-icon>
-                  {{ event.location }}
-                </div>
+                  <div class="d-flex align-center text-body-2 opacity-70 mb-4 font-weight-light">
+                    {{ event.location }}
+                  </div>
 
-                <p class="body-copy text-body-1 font-weight-light opacity-90">
-                  {{ event.description }}
-                </p>
-              </v-col>
-            </v-row>
+                  <p class="body-copy text-body-1 font-weight-light opacity-90">
+                    {{ event.description }}
+                  </p>
+                </v-col>
+              </v-row>
 
-            <v-divider
-              v-if="index < upcomingEvents.length - 1"
-              class="my-6 opacity-10"
-              color="surface"
-            ></v-divider>
+              <v-divider
+                v-if="index < upcomingEvents.length - 1"
+                class="my-6 opacity-10"
+                color="surface"
+              ></v-divider>
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -135,5 +132,35 @@ const upcomingEvents = computed(() => {
 }
 .gap-2 {
   gap: 8px;
+}
+.events-scroll {
+  max-height: 900px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--v-theme-secondary), 0) transparent;
+  transition: scrollbar-color 0.25s ease;
+}
+.events-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+.events-scroll::-webkit-scrollbar-thumb {
+  background: rgba(var(--v-theme-secondary), 0);
+  border-radius: 999px;
+}
+.events-scroll:hover {
+  scrollbar-color: rgba(var(--v-theme-secondary), 0.35) transparent;
+}
+.events-scroll:hover::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+.events-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(var(--v-theme-secondary), 0.35);
+  border-radius: 999px;
+}
+.events-scroll:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--v-theme-secondary), 0.5);
 }
 </style>
