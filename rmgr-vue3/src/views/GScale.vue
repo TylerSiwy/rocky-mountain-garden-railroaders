@@ -1,5 +1,4 @@
 ﻿<script lang="ts" setup>
-// Ensuring the component instance name matches the descriptor inside your routes configuration file perfectly
 defineOptions({ name: 'GScaleInfo' })
 </script>
 
@@ -15,7 +14,7 @@ defineOptions({ name: 'GScaleInfo' })
           </v-card-item>
 
           <v-card-text class="pa-0 text-body-1 text-on-surface">
-            <p class="mb-4">
+            <p class="body-copy mb-4">
               <span class="font-weight-bold text-primary">G-Scale</span> (also known as G-Gauge) is
               a model scale (size) best known for <em>garden railways</em>—outdoor layouts where
               model trains run through real landscapes (The G in G-Scale means garden). Trains run
@@ -25,10 +24,10 @@ defineOptions({ name: 'GScaleInfo' })
 
             <v-divider class="my-8 opacity-10"></v-divider>
 
-            <v-row justify="space-between">
-              <v-col class="pe-md-6" cols="12" md="6">
+            <v-row>
+              <v-col class="pe-md-6 mb-6 mb-md-0" cols="12" md="6">
                 <div class="text-h5 font-weight-bold text-primary mb-3">History of G-Scale</div>
-                <p class="mb-4">
+                <p class="body-copy mb-4">
                   First introduced in the 1930s, G-Scale was initially popular among European
                   modelers who wanted larger, more detailed trains for backyard garden and attic
                   layouts. After WWII, residential shifts caused manufacturing trends to heavily
@@ -38,7 +37,7 @@ defineOptions({ name: 'GScaleInfo' })
 
               <v-col cols="12" md="6">
                 <div class="text-h5 font-weight-bold text-primary mb-3">The Outdoor Revolution</div>
-                <p>
+                <p class="body-copy">
                   In 1968, the German company LGB (Lehmann Gross Bahn) fundamentally revolutionized
                   the market by introducing durable, completely weather-resistant trains made
                   specifically for permanent outdoor use. Their mechanical innovation helped fully
@@ -52,22 +51,22 @@ defineOptions({ name: 'GScaleInfo' })
 
       <v-col class="bg-primary pa-6 pa-sm-12 rounded-b-lg" cols="12">
         <v-card class="w-100 text-surface" color="transparent" flat>
-          <v-row class="mb-6" justify="space-between">
+          <v-row class="mb-6">
             <v-col class="pe-md-6 mb-6 mb-md-0" cols="12" md="6">
               <div class="text-h5 font-weight-bold mb-3">Rise in Popularity</div>
-              <p class="mb-4 opacity-90">
+              <p class="body-copy mb-4 opacity-90">
                 By the mid-1980s, G-Scale had become well established. A broad variety of
                 high-fidelity locomotives, rolling stock, modular buildings, and landscape
                 accessories became widely available globally.
               </p>
-              <p class="opacity-90">
+              <p class="body-copy opacity-90">
                 Industry-focused publications inspired thousands of modelers to push
                 boundaries—blending creative modeling and meticulous scale craftsmanship with
                 outdoor horticulture.
               </p>
             </v-col>
 
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="6">
               <div class="text-h5 font-weight-bold mb-3">Why G-Scale?</div>
               <p class="mb-4 opacity-90">
                 G-Scale is loved for its substantial, hands-on size, massive visual impact, and
@@ -84,10 +83,10 @@ defineOptions({ name: 'GScaleInfo' })
 
           <v-divider class="my-8 opacity-10" color="surface"></v-divider>
 
-          <v-row no-gutters>
+          <v-row>
             <v-col cols="12">
               <div class="text-h5 font-weight-bold mb-2">Want to Learn More?</div>
-              <p class="text-body-1 font-weight-light opacity-90">
+              <p class="body-copy text-body-1 font-weight-light opacity-90">
                 For official international modeling standards, track clearances, and code
                 guidelines, explore the comprehensive resources provided by the
                 <a
@@ -107,7 +106,7 @@ defineOptions({ name: 'GScaleInfo' })
 </template>
 
 <style scoped>
-p {
+.body-copy {
   line-height: 1.6 !important;
 }
 a.text-secondary:hover {

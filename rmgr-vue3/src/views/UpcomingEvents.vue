@@ -73,7 +73,7 @@ const upcomingEvents = computed(() => {
           </div>
 
           <div v-for="(event, index) in upcomingEvents" :key="index">
-            <v-row align="start" class="py-4" justify="space-between">
+            <v-row align="start" class="py-4">
               <v-col cols="12" md="3" sm="4">
                 <div class="text-h5 font-weight-bold text-secondary mb-1">
                   {{ event.date }}
@@ -108,7 +108,7 @@ const upcomingEvents = computed(() => {
                   {{ event.location }}
                 </div>
 
-                <p class="text-body-1 font-weight-light opacity-90">
+                <p class="body-copy text-body-1 font-weight-light opacity-90">
                   {{ event.description }}
                 </p>
               </v-col>
@@ -127,7 +127,7 @@ const upcomingEvents = computed(() => {
 </template>
 
 <style scoped>
-p {
+.body-copy {
   line-height: 1.6 !important;
 }
 .tracking-tight {

@@ -97,7 +97,7 @@
             </v-card-title>
           </div>
 
-          <v-row align="center" class="mb-6" justify="space-between">
+          <v-row align="center" class="mb-6">
             <v-col class="pe-sm-6" cols="12" sm="6">
               <div class="d-flex align-start">
                 <v-icon
@@ -117,7 +117,7 @@
               </div>
             </v-col>
 
-            <v-col class="pt-4 pt-sm-0" cols="12" md="5" sm="6">
+            <v-col class="pt-4 pt-sm-0" cols="12" md="6" sm="6">
               <v-date-picker
                 v-model="selectedDate"
                 class="w-100 bg-surface rounded-lg elevation-2"
@@ -130,7 +130,7 @@
 
           <v-divider class="my-6 opacity-10" color="surface"></v-divider>
 
-          <v-row align="center" class="mb-6" justify="space-between">
+          <v-row align="center" class="mb-6">
             <v-col class="pe-sm-6" cols="12" sm="6">
               <div class="d-flex align-start">
                 <v-icon
@@ -150,7 +150,7 @@
               </div>
             </v-col>
 
-            <v-col class="pt-4 pt-sm-0" cols="12" md="5" sm="6">
+            <v-col class="pt-4 pt-sm-0" cols="12" md="6" sm="6">
               <v-responsive :aspect-ratio="16 / 9" class="rounded-lg elevation-2 bg-surface w-100">
                 <iframe
                   height="100%"
