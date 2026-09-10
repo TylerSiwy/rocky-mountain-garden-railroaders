@@ -29,7 +29,6 @@
 
 <script lang="ts" setup>
 const navItems = [
-  { title: 'Home', to: '/' },
   { title: 'About Us', to: '/aboutUs' },
   { title: 'G-Scale Model Railroading', to: '/g-scale' },
   { title: 'Upcoming Events', to: '/events' },
