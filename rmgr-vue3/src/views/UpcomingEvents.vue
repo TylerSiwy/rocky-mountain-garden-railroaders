@@ -1,47 +1,29 @@
 ﻿<script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { type CalendarEvent, parseGoogleCalendarIcs } from '@/lib/googleCalendar'
 
 defineOptions({ name: 'UpcomingEvents' })
 
-const eventData = ref([
-  {
-    title: 'Annual Club Garden Tour & Open House',
-    date: 'July 19, 2026',
-    time: '10:00 AM - 4:30 PM',
-    location: 'Various Member Layouts, Calgary Area',
-    description:
-      'Our hallmark summer event! Hop between multiple breathtaking backyard garden layouts to see large-scale trains winding through real rock waterfalls, bridges, and living miniature alpine flora. The tour wraps up with an evening family social.',
-    highlight: true,
-  },
-  {
-    title: 'Supertrain Exhibition Preparation Layout',
-    date: 'August 15, 2026',
-    time: '9:00 AM - 3:00 PM',
-    location: 'Club Workshop, Calgary',
-    description:
-      'Work party session focused on electrical testing, modular base wiring, and scenery tuning for our upcoming public convention tracks. Bring your troubleshooting eyes and any rolling stock you want track-tested.',
-  },
-  {
-    title: 'Fall General Kickoff Meeting',
-    date: 'September 17, 2026',
-    time: '7:15 PM - 9:00 PM',
-    location: '2715 Dovely Park SE, Calgary',
-    description:
-      'Welcome back meeting for the fall modeling season. We will be sharing layout construction logs from over the summer, discussing new 3D printing design techniques, and scheduling our holiday display workshops.',
-    highlight: false,
-  },
-  {
-    title: 'Holiday ZooLights Setup Workshop',
-    date: 'November 07, 2026',
-    time: '10:00 AM - 2:00 PM',
-    location: 'Calgary Zoo, AB',
-    description:
-      'Initial construction and track-laying session for our famous winter display at ZooLights. Volunteers are needed to assemble weather-resistant town layouts and run power conduits.',
-  },
-])
+const eventData = ref<CalendarEvent[]>([])
 
 const upcomingEvents = computed(() => {
   return eventData.value
+})
+
+const calendarFeedUrl = import.meta.env.VITE_GOOGLE_CALENDAR_FEED_URL ?? '/calendar-ics'
+
+const loadCalendarEvents = async () => {
+  if (!calendarFeedUrl) {
+    return
+  }
+
+  const response = await fetch(calendarFeedUrl)
+  const ics = await response.text()
+  eventData.value = parseGoogleCalendarIcs(ics)
+}
+
+onMounted(() => {
+  void loadCalendarEvents()
 })
 
 defineExpose({
@@ -57,7 +39,7 @@ defineExpose({
         <v-card class="w-100 bg-surface" flat>
           <v-card-item class="pa-0">
             <v-card-title class="text-h4 font-weight-black text-primary pa-0">
-              Upcoming Club Events.
+              Upcoming Club Events
             </v-card-title>
           </v-card-item>
         </v-card>
@@ -76,7 +58,7 @@ defineExpose({
           <div v-else class="events-scroll">
             <div v-for="(event, index) in upcomingEvents" :key="index">
               <v-row align="start" class="py-4">
-                <v-col cols="12" md="3" sm="4">
+                <v-col cols="12" md="2" sm="3">
                   <div class="text-h5 font-weight-bold text-secondary mb-1">
                     {{ event.date }}
                   </div>
@@ -85,7 +67,7 @@ defineExpose({
                   </div>
                 </v-col>
 
-                <v-col class="pt-2 pt-sm-0" cols="12" md="8" sm="8">
+                <v-col class="pt-1 pt-sm-0" cols="12" md="10" sm="9">
                   <div class="d-flex align-center flex-wrap gap-2 mb-2">
                     <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
 
@@ -137,12 +119,12 @@ defineExpose({
   max-height: 900px;
   overflow-y: scroll;
   overflow-x: hidden;
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   scrollbar-color: rgba(var(--v-theme-secondary), 0) transparent;
   transition: scrollbar-color 0.25s ease;
 }
 .events-scroll::-webkit-scrollbar {
-  width: 8px;
+  width: 0;
   height: 0;
 }
 .events-scroll::-webkit-scrollbar-thumb {

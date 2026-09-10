@@ -12,6 +12,16 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
   ],
+  server: {
+    proxy: {
+      '/calendar-ics': {
+        target: 'https://calendar.google.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: () => '/calendar/ical/rmgrmail%40gmail.com/public/basic.ics',
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
