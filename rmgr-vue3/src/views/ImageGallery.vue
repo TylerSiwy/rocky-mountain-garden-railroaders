@@ -58,7 +58,7 @@ const openLightbox = (index: number) => {
         <v-card class="w-100 bg-surface" flat>
           <v-card-item class="pa-0">
             <v-card-title class="text-h4 font-weight-black text-primary pa-0">
-              Our Railway Gallery
+              Club Photos
             </v-card-title>
             <v-card-subtitle class="text-body-1 pa-0 mt-3 text-medium-emphasis text-wrap">
               Explore snapshots of our member layouts, garden landscapes, creative model

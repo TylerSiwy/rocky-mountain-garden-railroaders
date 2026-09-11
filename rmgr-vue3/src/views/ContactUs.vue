@@ -110,8 +110,8 @@
                     Meeting Schedule
                   </div>
                   <div class="text-body-1 font-weight-light text-surface opacity-90 mt-1">
-                    Our meetings occur from September to June on the third Thursday of every month
-                    at 7:15pm.
+                    Our club meetings occur from September to June on the third Thursday of every month
+                    at 7:15pm. In July and August we have no meetings.
                   </div>
                 </div>
               </div>

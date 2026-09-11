@@ -33,8 +33,8 @@ defineExpose({
 </script>
 
 <template>
-  <v-container class="py-12 px-4 bg-background" fluid>
-    <v-row justify="center" no-gutters>
+  <v-container class="py-8 px-4 bg-background" fluid>
+    <v-row no-gutters>
       <v-col class="bg-surface pa-6 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
           <v-card-item class="pa-0">
@@ -55,7 +55,7 @@ defineExpose({
             </div>
           </div>
 
-          <div v-else class="events-scroll">
+          <div v-else>
             <div v-for="(event, index) in upcomingEvents" :key="index">
               <v-row align="start" class="py-4">
                 <v-col cols="12" md="2" sm="3">
@@ -108,41 +108,5 @@ defineExpose({
 <style scoped>
 .body-copy {
   line-height: 1.6 !important;
-}
-.tracking-tight {
-  letter-spacing: -0.01em !important;
-}
-.gap-2 {
-  gap: 8px;
-}
-.events-scroll {
-  max-height: 900px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: auto;
-  scrollbar-color: rgba(var(--v-theme-secondary), 0) transparent;
-  transition: scrollbar-color 0.25s ease;
-}
-.events-scroll::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-.events-scroll::-webkit-scrollbar-thumb {
-  background: rgba(var(--v-theme-secondary), 0);
-  border-radius: 999px;
-}
-.events-scroll:hover {
-  scrollbar-color: rgba(var(--v-theme-secondary), 0.35) transparent;
-}
-.events-scroll:hover::-webkit-scrollbar {
-  width: 8px;
-  height: 0;
-}
-.events-scroll:hover::-webkit-scrollbar-thumb {
-  background: rgba(var(--v-theme-secondary), 0.35);
-  border-radius: 999px;
-}
-.events-scroll:hover::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--v-theme-secondary), 0.5);
 }
 </style>
