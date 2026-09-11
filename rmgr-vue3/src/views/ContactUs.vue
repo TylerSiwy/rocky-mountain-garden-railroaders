@@ -91,13 +91,13 @@
 
       <v-col class="bg-primary pa-6 pa-sm-12 rounded-b-lg" cols="12">
         <v-card class="w-100" color="transparent" flat>
-          <div class="mb-8">
-            <v-card-title class="text-h4 font-weight-bold pa-0 text-surface">
-              Club Information
-            </v-card-title>
-          </div>
+          <v-card-title class="text-h4 font-weight-bold pa-0 text-surface">
+            Club Information
+          </v-card-title>
 
-          <v-row align="center" class="mb-6">
+          <v-divider class="mb-8 opacity-10" color="surface"></v-divider>
+
+          <v-row align="center">
             <v-col class="pe-sm-6" cols="12" sm="6">
               <div class="d-flex align-start">
                 <v-icon
@@ -110,14 +110,14 @@
                     Meeting Schedule
                   </div>
                   <div class="text-body-1 font-weight-light text-surface opacity-90 mt-1">
-                    Our club meetings occur from September to June on the third Thursday of every month
-                    at 7:15pm. In July and August we have no meetings.
+                    Our club meetings occur from September to June on the third Thursday of every
+                    month at 7:15pm. In July and August we have no meetings.
                   </div>
                 </div>
               </div>
             </v-col>
 
-            <v-col class="pt-4 pt-sm-0" cols="12" md="6" sm="6">
+            <v-col cols="12" md="6" sm="6">
               <v-date-picker
                 v-model="selectedDate"
                 class="w-100 bg-surface rounded-lg elevation-2"
@@ -128,7 +128,7 @@
             </v-col>
           </v-row>
 
-          <v-divider class="my-6 opacity-10" color="surface"></v-divider>
+          <v-divider class="my-8 opacity-10" color="surface"></v-divider>
 
           <v-row align="center" class="mb-6">
             <v-col class="pe-sm-6" cols="12" sm="6">
@@ -150,7 +150,7 @@
               </div>
             </v-col>
 
-            <v-col class="pt-4 pt-sm-0" cols="12" md="6" sm="6">
+            <v-col class="pt-4" cols="12" md="6" sm="6">
               <v-responsive :aspect-ratio="16 / 9" class="rounded-lg elevation-2 bg-surface w-100">
                 <iframe
                   height="100%"
