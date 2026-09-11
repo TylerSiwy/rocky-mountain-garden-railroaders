@@ -10,7 +10,7 @@ const upcomingEvents = computed(() => {
   return eventData.value
 })
 
-const calendarFeedUrl = import.meta.env.VITE_GOOGLE_CALENDAR_FEED_URL ?? '/calendar-ics'
+const calendarFeedUrl = '/calendar-ics'
 
 const loadCalendarEvents = async () => {
   if (!calendarFeedUrl) {

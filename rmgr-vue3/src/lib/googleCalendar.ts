@@ -44,7 +44,7 @@ export const mapGoogleCalendarFeedToEvents = (items: Array<any>): CalendarEvent[
   })
 }
 
-const parseIcsDate = (value: string) => {
+const parseIcsDate = (value: string, timeZone?: string) => {
   const parsed = value.trim()
   const compact = parsed.replace(/Z$/, '').replace(/^.*:/, '')
 
@@ -62,6 +62,37 @@ const parseIcsDate = (value: string) => {
   const minute = Number(compact.slice(11, 13))
   const second = Number(compact.slice(13, 15))
 
+  if (timeZone && !parsed.endsWith('Z')) {
+    const localIso = `${compact.slice(0, 4)}-${compact.slice(4, 6)}-${compact.slice(6, 8)}T${compact.slice(9, 11)}:${compact.slice(11, 13)}:${compact.slice(13, 15)}`
+    const dtf = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    })
+
+    const target = new Date(localIso)
+    const parts = Object.fromEntries(
+      dtf.formatToParts(target).map((part) => [part.type, part.value]),
+    ) as Record<string, string>
+
+    const tzUtc = Date.UTC(
+      Number(parts.year),
+      Number(parts.month) - 1,
+      Number(parts.day),
+      Number(parts.hour),
+      Number(parts.minute),
+      Number(parts.second),
+    )
+    const localUtc = Date.UTC(year, month, day, hour, minute, second)
+    const offset = localUtc - tzUtc
+    return new Date(localUtc + offset)
+  }
+
   return new Date(Date.UTC(year, month, day, hour, minute, second))
 }
 
@@ -73,6 +104,29 @@ const decodeIcsValue = (value: string) =>
     .replace(/\\,/g, ',')
     .replace(/\\;/g, ';')
     .replace(/\\\\/g, '\\')
+
+const parseRrule = (value?: string) => {
+  if (!value) return null
+
+  const parts = Object.fromEntries(
+    value.split(';').map((part) => {
+      const [key, rawValue] = part.split('=')
+      return [key, rawValue]
+    }),
+  ) as Record<string, string | undefined>
+
+  if (parts.FREQ !== 'MONTHLY' || parts.BYDAY !== '3TH') {
+    return null
+  }
+
+  return true
+}
+
+const addMonths = (value: Date, months: number) => {
+  const copy = new Date(value.getTime())
+  copy.setMonth(copy.getMonth() + months)
+  return copy
+}
 
 export const parseGoogleCalendarIcs = (ics: string): CalendarEvent[] => {
   const lines = unfoldIcs(ics).split(/\r?\n/)
@@ -89,15 +143,26 @@ export const parseGoogleCalendarIcs = (ics: string): CalendarEvent[] => {
       if (current?.DTSTART) {
         const startValue = current.DTSTART
         const endValue = current.DTEND
-        const start = parseIcsDate(startValue)
-        const end = endValue ? parseIcsDate(endValue) : undefined
-        events.push({
-          title: current.SUMMARY ?? 'Untitled event',
-          date: formatDate(start.toISOString()),
-          time: end ? formatTime(start.toISOString(), end.toISOString()) : 'All day',
-          location: current.LOCATION ?? 'TBD',
-          description: current.DESCRIPTION ?? '',
-        })
+        const start = parseIcsDate(startValue, current.DTSTART_TZID)
+        const end = endValue ? parseIcsDate(endValue, current.DTEND_TZID) : undefined
+        const occurrences = parseRrule(current.RRULE)
+          ? Array.from({ length: 12 }, (_, index) => ({
+              start: addMonths(start, index),
+              end: end ? addMonths(end, index) : undefined,
+            }))
+          : [{ start, end }]
+
+        for (const occurrence of occurrences) {
+          events.push({
+            title: current.SUMMARY ?? 'Untitled event',
+            date: formatDate(occurrence.start.toISOString()),
+            time: occurrence.end
+              ? formatTime(occurrence.start.toISOString(), occurrence.end.toISOString())
+              : 'All day',
+            location: current.LOCATION ?? 'TBD',
+            description: current.DESCRIPTION ?? '',
+          })
+        }
       }
       current = null
       continue
@@ -109,9 +174,13 @@ export const parseGoogleCalendarIcs = (ics: string): CalendarEvent[] => {
     if (colonIndex === -1) continue
     const key = line.slice(0, colonIndex)
     const value = decodeIcsValue(line.slice(colonIndex + 1).trim())
-    const normalizedKey = key.split(';')[0]
+    const [normalizedKey, ...params] = key.split(';')
+    const tzidParam = params.find((param) => param.startsWith('TZID='))
+    if (tzidParam && (normalizedKey === 'DTSTART' || normalizedKey === 'DTEND')) {
+      current[`${normalizedKey}_TZID`] = tzidParam.replace('TZID=', '')
+    }
     current[normalizedKey] = value
   }
 
-  return events
+  return events.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
 }

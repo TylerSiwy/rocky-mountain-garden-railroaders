@@ -124,13 +124,16 @@
             </v-col>
 
             <v-col cols="12" md="6" sm="6">
-              <v-date-picker
-                v-model="selectedDate"
-                class="w-100 bg-surface rounded-lg elevation-2"
-                color="primary"
-                hide-header
-                show-adjacent-months
-              ></v-date-picker>
+              <v-responsive :aspect-ratio="4 / 3" class="rounded-lg elevation-2 bg-surface w-100">
+                <iframe
+                  height="100%"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src="https://calendar.google.com/calendar/embed?src=6dd4b4e6f943529cc0dc677309d804dc1da233690360da12fe55770e6dfacccf%40group.calendar.google.com&ctz=America%2FEdmonton"
+                  style="border: 0"
+                  width="100%"
+                ></iframe>
+              </v-responsive>
             </v-col>
           </v-row>
 
@@ -229,7 +232,6 @@ const isSubmitting = ref(false)
 const showSnackbar = ref(false)
 const errorMessage = ref('')
 
-const selectedDate = ref(new Date())
 const subjectOptions = ['Membership Inquiry', 'Events', 'General Inquiry']
 
 const formData = reactive({

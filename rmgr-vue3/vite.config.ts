@@ -20,7 +20,8 @@ export default defineConfig({
         target: 'https://calendar.google.com',
         changeOrigin: true,
         secure: true,
-        rewrite: () => '/calendar/ical/rmgrmail%40gmail.com/public/basic.ics',
+        rewrite: () =>
+          '/calendar/ical/6dd4b4e6f943529cc0dc677309d804dc1da233690360da12fe55770e6dfacccf%40group.calendar.google.com/public/basic.ics',
       },
     },
   },
