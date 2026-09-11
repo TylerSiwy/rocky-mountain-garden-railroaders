@@ -18,6 +18,12 @@
 
           <v-form ref="form" v-model="isFormValid" @submit.prevent="handleSubmit">
             <v-row>
+              <v-col v-if="errorMessage" cols="12">
+                <v-alert border="start" color="error" density="comfortable" variant="tonal">
+                  {{ errorMessage }}
+                </v-alert>
+              </v-col>
+
               <v-col class="py-1" cols="12" sm="6">
                 <v-text-field
                   v-model="formData.name"
@@ -213,6 +219,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import type { ContactFormPayload } from '@/types/contact'
 
 defineOptions({ name: 'ContactUs' })
 
@@ -220,26 +227,51 @@ const form = ref<InstanceType<typeof import('vuetify/components').VForm> | null>
 const isFormValid = ref(false)
 const isSubmitting = ref(false)
 const showSnackbar = ref(false)
+const errorMessage = ref('')
 
 const selectedDate = ref(new Date())
-const subjectOptions = ['General Inquiry', 'Membership Questions', 'Event Bookings', 'Other']
+const subjectOptions = ['Membership Inquiry', 'Events', 'General Inquiry']
 
 const formData = reactive({
   name: '',
   email: '',
-  subject: null,
+  subject: null as string | null,
   message: '',
 })
 
 const handleSubmit = async () => {
   if (!isFormValid.value) return
   isSubmitting.value = true
+  errorMessage.value = ''
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    if (!formData.subject) {
+      throw new Error('Please select a topic')
+    }
+
+    const payload: ContactFormPayload = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    }
+
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      const result = (await response.json()) as { error?: string }
+      throw new Error(result.error ?? 'Unable to send your message.')
+    }
+
     showSnackbar.value = true
     form.value?.reset()
   } catch (error) {
-    console.error('Submission failed:', error)
+    errorMessage.value = error instanceof Error ? error.message : 'Unable to send your message.'
   } finally {
     isSubmitting.value = false
   }
