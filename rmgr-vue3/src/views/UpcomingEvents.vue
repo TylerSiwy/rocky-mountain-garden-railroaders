@@ -33,12 +33,12 @@ defineExpose({
 </script>
 
 <template>
-  <v-container class="py-8 px-4 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid>
     <v-row no-gutters>
-      <v-col class="bg-surface pa-6 rounded-t-lg" cols="12">
+      <v-col class="bg-surface pa-4 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
-          <v-card-item class="pa-0">
-            <v-card-title class="text-h4 font-weight-black text-primary pa-0">
+          <v-card-item>
+            <v-card-title class="text-h4 font-weight-black text-primary">
               Upcoming Club Events
             </v-card-title>
           </v-card-item>
@@ -57,8 +57,8 @@ defineExpose({
 
           <div v-else>
             <div v-for="(event, index) in upcomingEvents" :key="index">
-              <v-row align="start" class="py-4">
-                <v-col cols="12" md="2" sm="3">
+              <v-row align="start" class="">
+                <v-col cols="12" md="3" sm="3">
                   <div class="text-h5 font-weight-bold text-secondary mb-1">
                     {{ event.date }}
                   </div>
@@ -67,8 +67,8 @@ defineExpose({
                   </div>
                 </v-col>
 
-                <v-col class="pt-1 pt-sm-0" cols="12" md="10" sm="9">
-                  <div class="d-flex align-center flex-wrap gap-2 mb-2">
+                <v-col cols="12" md="9" sm="9">
+                  <div class="d-flex align-center flex-wrap gap-2 mb-1">
                     <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
 
                     <v-chip
@@ -82,7 +82,7 @@ defineExpose({
                     </v-chip>
                   </div>
 
-                  <div class="d-flex align-center text-body-2 opacity-70 mb-4 font-weight-light">
+                  <div class="d-flex align-center text-body-2 opacity-70 font-weight-light">
                     {{ event.location }}
                   </div>
 
@@ -104,9 +104,3 @@ defineExpose({
     </v-row>
   </v-container>
 </template>
-
-<style scoped>
-.body-copy {
-  line-height: 1.6 !important;
-}
-</style>
