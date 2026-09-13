@@ -6,7 +6,6 @@ To Run The App:
 
 todo:
 
-- Fix spacing left of upcoming events
+- Add images to About us and G-Scale pages
 - Import Images
 - Import Video
-- Get Contact Form Working Correctly
