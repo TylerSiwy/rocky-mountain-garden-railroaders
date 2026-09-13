@@ -106,14 +106,16 @@
           <v-row align="center">
             <v-col class="pe-sm-6" cols="12" sm="6">
               <div class="d-flex align-start">
-                <v-icon
-                  class="me-4 opacity-40 mt-1"
-                  color="surface"
-                  icon="mdi-clock-outline"
-                ></v-icon>
                 <div>
-                  <div class="text-h6 font-weight-bold text-uppercase text-surface">
-                    Meeting Schedule
+                  <div class="d-flex align-center ga-2 mb-1">
+                    <div class="text-h6 font-weight-bold text-uppercase text-surface">
+                      Meeting Schedule
+                    </div>
+                    <v-icon
+                      class="opacity-40"
+                      color="surface"
+                      icon="mdi-clock-outline"
+                    ></v-icon>
                   </div>
                   <div class="text-body-1 font-weight-light text-surface opacity-90 mt-1">
                     Our club meetings occur from September to June on the third Thursday of every
@@ -142,14 +144,16 @@
           <v-row align="center" class="mb-6">
             <v-col class="pe-sm-6" cols="12" sm="6">
               <div class="d-flex align-start">
-                <v-icon
-                  class="me-4 opacity-40 mt-1"
-                  color="surface"
-                  icon="mdi-map-marker-outline"
-                ></v-icon>
                 <div>
-                  <div class="text-h6 font-weight-bold text-uppercase text-surface">
-                    Meeting Location
+                  <div class="d-flex align-center ga-2 mb-1">
+                    <div class="text-h6 font-weight-bold text-uppercase text-surface">
+                      Monthly Meeting Location
+                    </div>
+                    <v-icon
+                      class="opacity-40"
+                      color="surface"
+                      icon="mdi-map-marker-outline"
+                    ></v-icon>
                   </div>
                   <div class="text-body-1 font-weight-light text-surface opacity-80 mt-1">
                     2715 Dovely Park SE<br />

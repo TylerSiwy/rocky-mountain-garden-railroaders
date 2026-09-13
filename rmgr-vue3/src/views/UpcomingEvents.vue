@@ -41,6 +41,11 @@ defineExpose({
             <v-card-title class="text-h4 font-weight-black text-primary">
               Upcoming Events
             </v-card-title>
+            <v-card-subtitle class="pa-0 mt-2 text-body-2 text-medium-emphasis">
+              <a class="subscribe-link" :href="calendarFeedUrl" rel="noopener noreferrer" target="_blank">
+                Subscribe to this calendar
+              </a>
+            </v-card-subtitle>
           </v-card-item>
         </v-card>
       </v-col>
@@ -173,5 +178,11 @@ defineExpose({
 .event-title-icon {
   flex: 0 0 auto;
   opacity: 0.95;
+}
+
+.subscribe-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 </style>
