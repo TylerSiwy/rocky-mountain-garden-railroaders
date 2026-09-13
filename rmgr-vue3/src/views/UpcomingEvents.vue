@@ -33,13 +33,13 @@ defineExpose({
 </script>
 
 <template>
-  <v-container class="pa-8 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid style="width: 1650px">
     <v-row no-gutters>
       <v-col class="bg-surface pa-4 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
           <v-card-item>
             <v-card-title class="text-h4 font-weight-black text-primary">
-              Upcoming Club Events
+              Upcoming Events
             </v-card-title>
           </v-card-item>
         </v-card>
@@ -48,7 +48,6 @@ defineExpose({
       <v-col class="bg-primary pa-6 pa-sm-12 rounded-b-lg" cols="12">
         <v-card class="w-100 text-surface" color="transparent" flat>
           <div v-if="upcomingEvents.length === 0" class="text-center py-12 opacity-70">
-            <v-icon class="mb-2 d-block mx-auto" icon="mdi-calendar-blank" size="large"></v-icon>
             <div class="text-h6 font-weight-light">No upcoming events scheduled right now.</div>
             <div class="text-body-2 opacity-80 mt-1">
               Check back soon or send us a message via our contact page!
@@ -57,40 +56,57 @@ defineExpose({
 
           <div v-else>
             <div v-for="(event, index) in upcomingEvents" :key="index">
-              <v-row align="start" class="">
-                <v-col cols="12" md="3" sm="3">
-                  <div class="text-h5 font-weight-bold text-secondary mb-1">
-                    {{ event.date }}
-                  </div>
-                  <div class="text-body-2 font-weight-light opacity-70">
-                    {{ event.time }}
-                  </div>
-                </v-col>
+              <component
+                :is="event.url ? 'a' : 'div'"
+                :aria-label="event.url ? `Open ${event.title}` : undefined"
+                :class="{ 'event-card--clickable': !!event.url }"
+                :href="event.url || undefined"
+                :rel="event.url ? 'noopener noreferrer' : undefined"
+                :target="event.url ? '_blank' : undefined"
+                class="event-card d-block text-decoration-none text-inherit"
+              >
+                <v-row align="center" class="event-row">
+                  <v-col class="event-meta-col" cols="12" md="2.5" sm="3">
+                    <div class="event-date text-secondary font-weight-bold mb-1">
+                      {{ event.date }}
+                    </div>
+                    <div class="event-time text-body-1 font-weight-light opacity-80">
+                      {{ event.time }}
+                    </div>
+                  </v-col>
 
-                <v-col cols="12" md="9" sm="9">
-                  <div class="d-flex align-center flex-wrap gap-2 mb-1">
-                    <h3 class="text-h5 font-weight-bold tracking-tight">{{ event.title }}</h3>
-
-                    <v-chip
-                      v-if="event.highlight"
-                      class="font-weight-bold ms-sm-3 px-2 rounded-sm"
-                      color="secondary"
-                      size="x-small"
-                      variant="flat"
+                  <v-col cols="12" md="8" sm="9">
+                    <div class="d-flex align-center flex-wrap gap-2 mb-1">
+                      <h3 class="event-title text-h5 font-weight-bold tracking-tight">
+                        {{ event.title }}
+                      </h3>
+                    </div>
+                    <div class="event-location text-body-1 opacity-80 font-weight-light">
+                      {{ event.location }}
+                    </div>
+                    <p
+                      v-if="event.description"
+                      class="body-copy text-body-1 font-weight-light opacity-90"
                     >
-                      FEATURED
-                    </v-chip>
-                  </div>
+                      {{ event.description }}
+                    </p>
+                  </v-col>
 
-                  <div class="d-flex align-center text-body-2 opacity-70 font-weight-light">
-                    {{ event.location }}
-                  </div>
-
-                  <p class="body-copy text-body-1 font-weight-light opacity-90">
-                    {{ event.description }}
-                  </p>
-                </v-col>
-              </v-row>
+                  <v-col
+                    class="d-flex align-center justify-end event-action-col"
+                    cols="12"
+                    md="1"
+                    sm="3"
+                  >
+                    <v-icon
+                      v-if="event.url"
+                      class="event-title-icon text-secondary"
+                      icon="mdi-open-in-new"
+                      size="32"
+                    ></v-icon>
+                  </v-col>
+                </v-row>
+              </component>
 
               <v-divider
                 v-if="index < upcomingEvents.length - 1"
@@ -104,3 +120,58 @@ defineExpose({
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.event-date {
+  letter-spacing: 0.04em;
+  font-size: 1.125rem;
+}
+
+.event-time,
+.event-location,
+.event-title {
+  line-height: 1.35;
+}
+
+.event-meta-col {
+  max-width: 300px;
+}
+
+.event-action-col {
+  min-width: 44px;
+  min-height: 100%;
+}
+
+.event-card {
+  color: inherit;
+  border-radius: 16px;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.event-card--clickable:hover {
+  background-color: rgba(var(--v-theme-primary), 0.04);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.event-card--clickable:focus-visible {
+  outline: 2px solid rgba(var(--v-theme-primary), 0.55);
+  outline-offset: 3px;
+}
+
+.event-row {
+  padding: 4px 0;
+}
+
+.event-card--clickable .event-row {
+  cursor: pointer;
+}
+
+.event-title-icon {
+  flex: 0 0 auto;
+  opacity: 0.95;
+}
+</style>

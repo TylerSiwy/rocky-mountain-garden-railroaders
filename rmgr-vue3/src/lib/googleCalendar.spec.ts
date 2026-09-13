@@ -18,6 +18,8 @@ END:VCALENDAR`)
       title: 'Annual Club Garden Tour & Open House',
       location: 'Various Member Layouts, Calgary Area',
       description: 'Summer event',
+      titleLink: undefined,
+      url: undefined,
     })
   })
 
@@ -64,5 +66,96 @@ END:VCALENDAR`)
 
     expect(events[0].title).toBe('Sooner Event')
     expect(events[1].title).toBe('Later Event')
+  })
+
+  it('GIVEN an ICS URL WHEN parsing THEN it includes the event link', () => {
+    const events = parseGoogleCalendarIcs(`BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Linked Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+URL:https://example.com/event
+LOCATION:Online
+DESCRIPTION:Linked
+END:VEVENT
+END:VCALENDAR`)
+
+    expect(events[0]).toMatchObject({
+      title: 'Linked Event',
+      titleLink: 'https://example.com/event',
+      url: 'https://example.com/event',
+    })
+  })
+
+  it('GIVEN a description containing a hyperlink WHEN parsing THEN it promotes that link to the title', () => {
+    const events = parseGoogleCalendarIcs(`BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Description Linked Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:More info at https://example.com/details
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`)
+
+    expect(events[0]).toMatchObject({
+      title: 'Description Linked Event',
+      titleLink: 'https://example.com/details',
+      url: 'https://example.com/details',
+    })
+  })
+
+  it('GIVEN a description that is only a hyperlink WHEN parsing THEN it hides the description text', () => {
+    const events = parseGoogleCalendarIcs(`BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:URL Only Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:https://example.com/details
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`)
+
+    expect(events[0]).toMatchObject({
+      title: 'URL Only Event',
+      titleLink: 'https://example.com/details',
+      url: 'https://example.com/details',
+      description: '',
+    })
+  })
+
+  it('GIVEN a URL-only description with whitespace WHEN parsing THEN it hides the description text', () => {
+    const events = parseGoogleCalendarIcs(`BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:URL Only Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:  https://example.com/details  
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`)
+
+    expect(events[0]).toMatchObject({
+      titleLink: 'https://example.com/details',
+      description: '',
+    })
+  })
+
+  it('GIVEN a Google redirect hyperlink WHEN parsing THEN it resolves the target URL', () => {
+    const events = parseGoogleCalendarIcs(`BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:ZooLights
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:<a href="https://www.google.com/url?q=https://www.calgaryzoo.com/news/zoolights2026/&amp;sa=D&amp;source=calendar&amp;usd=2&amp;usg=AOvVaw2mFIKNrek4w8HwVuZcusci" target="_blank">https://www.calgaryzoo.com/news/zoolights2026/</a>
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`)
+
+    expect(events[0]).toMatchObject({
+      titleLink: 'https://www.calgaryzoo.com/news/zoolights2026/',
+      url: 'https://www.calgaryzoo.com/news/zoolights2026/',
+      description: '',
+    })
   })
 })

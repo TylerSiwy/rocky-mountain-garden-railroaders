@@ -1,5 +1,5 @@
 ﻿<template>
-  <v-container class="py-12 px-4 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid>
     <v-row justify="center" no-gutters>
       <v-col
         class="d-flex align-center justify-center bg-surface pa-6 pa-sm-12 rounded-t-lg"

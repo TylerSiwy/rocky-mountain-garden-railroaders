@@ -3,7 +3,7 @@ defineOptions({ name: 'GScaleInfo' })
 </script>
 
 <template>
-  <v-container class="py-12 px-4 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid>
     <v-row justify="center" no-gutters>
       <v-col class="bg-surface pa-6 pa-sm-12 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>

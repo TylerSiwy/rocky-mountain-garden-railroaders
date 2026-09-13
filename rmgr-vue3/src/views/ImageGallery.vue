@@ -52,13 +52,13 @@ const openLightbox = (index: number) => {
 </script>
 
 <template>
-  <v-container class="py-12 px-4 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid>
     <v-row justify="center" no-gutters>
       <v-col class="bg-surface pa-6 pa-sm-12 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
           <v-card-item class="pa-0">
             <v-card-title class="text-h4 font-weight-black text-primary pa-0">
-              Club Photos
+              Photos
             </v-card-title>
             <v-card-subtitle class="text-body-1 pa-0 mt-3 text-medium-emphasis text-wrap">
               Explore snapshots of our member layouts, garden landscapes, creative model
@@ -147,10 +147,10 @@ const openLightbox = (index: number) => {
 <style scoped>
 /* Smoothly limits multi-line heights inside card parameters cleanly */
 .card-lh-fix {
-  line-height: 1.5 !important;
+  line-height: 1.5;
   opacity: 0.85;
 }
 .border-t {
-  border-top: 1px solid rgba(var(--v-theme-primary), 0.1) !important;
+  border-top: 1px solid rgba(var(--v-theme-primary), 0.1);
 }
 </style>

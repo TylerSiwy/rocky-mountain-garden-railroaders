@@ -38,6 +38,7 @@ END:VCALENDAR`,
         time: string
         location: string
         description: string
+        titleLink?: string
         highlight?: boolean
       }>
       upcomingEvents: Array<{
@@ -46,6 +47,7 @@ END:VCALENDAR`,
         time: string
         location: string
         description: string
+        titleLink?: string
         highlight?: boolean
       }>
     }
@@ -60,6 +62,7 @@ END:VCALENDAR`,
       time: '1:15 PM - 2:45 PM',
       location: '2715 Dovely Park SE, Calgary, AB T2B 3G8, Canada',
       description: 'Monthly meeting',
+      titleLink: undefined,
     })
     expect(eventData[1]).toMatchObject({
       date: 'October 17, 2026',
@@ -68,5 +71,168 @@ END:VCALENDAR`,
     expect(rows[1].text()).toBe(eventData[1].title)
 
     expect(fetchMock).toHaveBeenCalledWith('/calendar-ics')
+  })
+
+  it('GIVEN a description hyperlink WHEN the page renders THEN the row is clickable', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Description Linked Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:More info at https://example.com/details
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    const rowLink = wrapper.find('a.event-card--clickable')
+
+    expect(rowLink.exists()).toBe(true)
+    expect(rowLink.attributes('href')).toBe('https://example.com/details')
+  })
+
+  it('GIVEN a description that is only a hyperlink WHEN the page renders THEN the description is omitted', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:URL Only Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:https://example.com/details
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    expect(wrapper.text()).not.toContain('https://example.com/details')
+    expect(wrapper.find('a.event-card--clickable').attributes('href')).toBe(
+      'https://example.com/details',
+    )
+  })
+
+  it('GIVEN a URL-only description with whitespace WHEN the page renders THEN the description is omitted', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:URL Only Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:  https://example.com/details  
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    expect(wrapper.text()).not.toContain('https://example.com/details')
+    expect(wrapper.find('a.event-card--clickable').attributes('href')).toBe(
+      'https://example.com/details',
+    )
+  })
+
+  it('GIVEN a Google redirect hyperlink WHEN the page renders THEN the description is omitted and the title links out', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:ZooLights
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:<a href="https://www.google.com/url?q=https://www.calgaryzoo.com/news/zoolights2026/&amp;sa=D&amp;source=calendar&amp;usd=2&amp;usg=AOvVaw2mFIKNrek4w8HwVuZcusci" target="_blank">https://www.calgaryzoo.com/news/zoolights2026/</a>
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    expect(wrapper.text()).not.toContain('https://www.calgaryzoo.com/news/zoolights2026/')
+    const rowLink = wrapper.find('a.event-card--clickable')
+    expect(rowLink.exists()).toBe(true)
+    expect(rowLink.attributes('href')).toBe('https://www.calgaryzoo.com/news/zoolights2026/')
+  })
+
+  it('GIVEN an event without a link WHEN the page renders THEN the row is not clickable', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Plain Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:Plain description
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    expect(wrapper.find('a.event-card--clickable').exists()).toBe(false)
+    expect(wrapper.find('div.event-card').exists()).toBe(true)
+  })
+
+  it('GIVEN a linked event WHEN the page renders THEN the icon appears on the right side', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => `BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Linked Event
+DTSTART;TZID=America/Edmonton:20260917T191500
+DTEND;TZID=America/Edmonton:20260917T204500
+DESCRIPTION:More info at https://example.com/details
+LOCATION:Online
+END:VEVENT
+END:VCALENDAR`,
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const wrapper = mount(UpcomingEvents)
+    await Promise.resolve()
+    await Promise.resolve()
+    await nextTick()
+    await Promise.resolve()
+    await nextTick()
+
+    expect(wrapper.find('.event-action-col').text()).toContain('')
   })
 })

@@ -1,5 +1,5 @@
 ﻿<template>
-  <v-container class="py-12 px-4 bg-background" fluid>
+  <v-container class="pa-8 bg-background" fluid>
     <v-row justify="center" no-gutters>
       <v-col class="bg-surface pa-6 pa-sm-12 rounded-t-lg" cols="12">
         <v-card class="w-100 bg-surface" flat>
@@ -94,14 +94,13 @@
             <v-col cols="12" md="5">
               <div class="text-h5 font-weight-bold mb-3">Annual Highlights</div>
               <p class="mb-4 opacity-90">
-                One of the most anticipated events is our club
-                <span class="text-secondary font-weight-medium">Garden Tour</span>, which is open to
-                anyone interested. It’s usually held in July.
+                One of the most anticipated events is our annual Garden Tour, which is open to
+                anyone interested. It’s usually held in July or August.
               </p>
               <p class="opacity-90">
-                Members visit a series of club members' layouts, offering a chance to exchange
-                ideas, showcase progress, and enjoy a shared passion. The day often wraps up with a
-                friendly BBQ.
+                Members visit a series of club members' layouts, offering a chance to showcase
+                progress, exchange ideas and inspiration, and enjoy the hobby through someone else's
+                perspective. The day often wraps up with a casual BBQ.
               </p>
             </v-col>
           </v-row>
@@ -142,7 +141,7 @@
             <v-col class="mb-4 mb-sm-0" cols="12" sm="8">
               <div class="text-h5 font-weight-bold mb-1">Ready to Join Us?</div>
               <div class="text-body-1 font-weight-light opacity-80">
-                Whether you're a lifelong railroader or just getting curious about G-Scale trains,
+                Whether you're a lifelong railroader or have a newfound interest in G-Scale trains,
                 RMGR welcomes all.
               </div>
             </v-col>

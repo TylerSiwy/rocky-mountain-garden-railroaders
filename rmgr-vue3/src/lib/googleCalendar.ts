@@ -4,6 +4,8 @@ export type CalendarEvent = {
   time: string
   location: string
   description: string
+  titleLink?: string
+  url?: string
   highlight?: boolean
 }
 
@@ -33,6 +35,7 @@ export const mapGoogleCalendarFeedToEvents = (items: Array<any>): CalendarEvent[
     const end = item.end?.dateTime ?? item.end?.date
     const location = item.location ?? 'TBD'
     const description = item.description ?? ''
+    const url = item.htmlLink ?? item.url
 
     return {
       title,
@@ -40,6 +43,7 @@ export const mapGoogleCalendarFeedToEvents = (items: Array<any>): CalendarEvent[
       time: item.start?.dateTime ? formatTime(start, end) : 'All day',
       location,
       description,
+      url,
     }
   })
 }
@@ -104,6 +108,38 @@ const decodeIcsValue = (value: string) =>
     .replace(/\\,/g, ',')
     .replace(/\\;/g, ';')
     .replace(/\\\\/g, '\\')
+    .replace(/&amp;/g, '&')
+
+const stripHtmlTags = (value: string) => value.replace(/<[^>]*>/g, '')
+
+const extractUrlFromGoogleRedirect = (value: string) => {
+  try {
+    const parsed = new URL(value)
+    const target = parsed.searchParams.get('q')
+    return target ? decodeURIComponent(target) : value
+  } catch {
+    return value
+  }
+}
+
+const extractUrl = (value: string) => {
+  const htmlHref = value.match(/href="([^"]+)"/)?.[1]
+  if (htmlHref) {
+    return extractUrlFromGoogleRedirect(htmlHref)
+  }
+
+  const plainUrl = value.match(/https?:\/\/[^\s<>"')\]]+/)?.[0]
+  if (!plainUrl) return undefined
+
+  return extractUrlFromGoogleRedirect(plainUrl)
+}
+const stripUrlOnlyDescription = (value: string, url?: string) => {
+  if (!url) return value
+  const normalized = stripHtmlTags(value).trim()
+  if (normalized === url) return ''
+  if (normalized.replace(/\s+/g, ' ') === url) return ''
+  return value
+}
 
 const parseRrule = (value?: string) => {
   if (!value) return null
@@ -153,6 +189,9 @@ export const parseGoogleCalendarIcs = (ics: string): CalendarEvent[] => {
           : [{ start, end }]
 
         for (const occurrence of occurrences) {
+          const rawDescription = decodeIcsValue(current.DESCRIPTION ?? '')
+          const titleLink = current.URL ?? extractUrl(rawDescription)
+          const description = stripUrlOnlyDescription(rawDescription, titleLink)
           events.push({
             title: current.SUMMARY ?? 'Untitled event',
             date: formatDate(occurrence.start.toISOString()),
@@ -160,7 +199,9 @@ export const parseGoogleCalendarIcs = (ics: string): CalendarEvent[] => {
               ? formatTime(occurrence.start.toISOString(), occurrence.end.toISOString())
               : 'All day',
             location: current.LOCATION ?? 'TBD',
-            description: current.DESCRIPTION ?? '',
+            description,
+            titleLink,
+            url: current.URL ?? titleLink,
           })
         }
       }
