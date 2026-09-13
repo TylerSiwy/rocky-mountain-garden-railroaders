@@ -93,7 +93,7 @@ export const resourcesSections: ResourceSection[] = [
       {
         title: 'Garden Railroads Reddit',
         description: 'Community discussions and shared layout photos.',
-        href: 'https://old.reddit.com/r/GardenRailroads/',
+        href: 'https://www.reddit.com/r/GardenRailroads/top/?screen_view_count=2&ext-referrer=DIRECT&t=month',
       },
       {
         title: 'Brunel Models Instagram',
