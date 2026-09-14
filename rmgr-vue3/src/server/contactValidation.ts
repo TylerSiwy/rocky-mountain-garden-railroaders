@@ -1,4 +1,4 @@
-import type { ContactFormPayload } from '@/types/contact'
+import type { ContactFormPayload } from '../types/contact'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -24,9 +27,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
-    "@tsconfig/node22": "^22.0.1",
+    "@tsconfig/node24": "^24.0.5",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.14.0",
+    "@types/node": "^24.0.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitejs/plugin-vue-jsx": "^4.1.2",
     "@vitest/eslint-plugin": "^1.1.39",
@@ -43,7 +46,7 @@
     "npm-run-all2": "^7.0.2",
     "oxlint": "^0.16.0",
     "prettier": "3.5.3",
-    "typescript": "~5.8.0",
+    "typescript": "^5.9.2",
     "vite": "^6.3.2",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vitest": "^4.1.8",

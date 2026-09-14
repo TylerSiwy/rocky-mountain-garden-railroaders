@@ -1,4 +1,4 @@
-import type { ContactFormPayload } from '@/types/contact'
+import type { ContactFormPayload } from '../types/contact'
 
 const requiredEnvVar = (key: string): string => {
   const value = process.env[key]
