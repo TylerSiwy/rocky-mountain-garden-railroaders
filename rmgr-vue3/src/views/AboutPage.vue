@@ -10,18 +10,33 @@
           </v-card-item>
 
           <v-card-text class="pa-0 text-body-1 text-on-surface">
-            <p class="mb-4">
-              Welcome to the Rocky Mountain Garden Railroaders (RMGR)! We are a passionate community
-              of G-Gauge model railroaders based in
-              <span class="font-weight-medium text-primary">Calgary, Alberta, Canada</span>. What
-              started as a group of friends in the late 1980s has grown into a vibrant,
-              family-focused club of approximately 35 member families who build, operate, and
-              display large-scale railways—both indoors and out.
-            </p>
-            <p class="mb-8">
-              Our mission is to promote the hobby of large-scale model railroading, support one
-              another's creative efforts, and share the joy of trains with the broader community.
-            </p>
+            <v-row align="center" class="mb-2">
+              <v-col class="pe-md-6 mb-4 mb-md-0" cols="12" md="7">
+                <p class="mb-4">
+                  Welcome to the Rocky Mountain Garden Railroaders (RMGR)! We are a passionate
+                  community of G-Gauge model railroaders based in
+                  <span class="font-weight-medium text-primary">Calgary, Alberta, Canada</span>.
+                  What started as a group of friends in the late 1980s has grown into a vibrant,
+                  family-focused club of approximately 35 member families who build, operate, and
+                  display large-scale railways—both indoors and out.
+                </p>
+                <p class="mb-0">
+                  Our mission is to promote the hobby of large-scale model railroading, support one
+                  another's creative efforts, and share the joy of trains with the broader
+                  community.
+                </p>
+              </v-col>
+
+              <v-col cols="12" md="5">
+                <div class="content-image-frame elevation-4">
+                  <img
+                    :src="highlightImage"
+                    alt="RMGR garden railway highlight"
+                    class="content-image"
+                  />
+                </div>
+              </v-col>
+            </v-row>
 
             <v-divider class="my-6 opacity-10"></v-divider>
 
@@ -166,6 +181,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import highlightImage from '@/assets/20090620_1024.jpg'
 
 defineOptions({ name: 'AboutUs' })
 

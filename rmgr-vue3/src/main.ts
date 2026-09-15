@@ -1,4 +1,5 @@
 import './assets/main.css'
+import './styles/shared-media.css'
 
 import { createApp } from 'vue'
 
