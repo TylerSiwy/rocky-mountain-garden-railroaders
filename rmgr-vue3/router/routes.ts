@@ -7,8 +7,7 @@ import ContactUs from '@/views/ContactUs.vue'
 import ResourcesPage from '@/views/ResourcesPage.vue'
 
 const routes = [
-  { path: '/', redirect: '/aboutUs' },
-  { path: '/aboutUs', name: 'About Us', component: About },
+  { path: '/', name: 'About Us', component: About },
   { path: '/g-scale', name: 'G-Scale Model Railroading', component: GScale },
   { path: '/events', name: 'Events', component: UpcomingEvents },
   { path: '/gallery', name: 'Image Gallery', component: Gallery },
