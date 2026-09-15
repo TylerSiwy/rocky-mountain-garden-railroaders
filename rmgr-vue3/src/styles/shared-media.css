@@ -1,0 +1,12 @@
+.content-image-frame {
+  width: 100%;
+  max-width: 803px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.content-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
